@@ -17,7 +17,6 @@ class App extends Component {
 
         this.handleNicknameChange = this.handleNicknameChange.bind(this);
 
-
     }
 
     componentDidMount() {
@@ -27,22 +26,19 @@ class App extends Component {
     geoSuccess =  (position) => {
         var startPos = position;
         this.setState({longitude: startPos.coords.longitude, latitude: startPos.coords.latitude});
-        console.log(this.state);
     }
 
     handleNicknameChange(name) {
-        this.setState({nickname: name});
-        
+        this.setState({nickname: name});       
     }
 
     render() {
         return(
             <BrowserRouter>
             <Switch>
-                <Route path="/Messenger" render={(props) => <Messenger {...props} nickname={this.state.nickname} exact />} />
+                <Route path="/Messenger" render={(props) => <Messenger {...props} nickname={this.state.nickname}  lat={this.state.latitude} long={this.state.longitude} exact />} />
                 <Route path="/" render={(props) => <Nickname {...props} handleNicknameChange={this.handleNicknameChange} exact />} />
-                
-                
+           
             </Switch>
             </BrowserRouter>
         );

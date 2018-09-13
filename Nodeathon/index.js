@@ -7,16 +7,37 @@ app.get('/',(req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('A user connected');
-    socket.on('disconnect', () => {
-        console.log('This user disconnected');
+
+
+    socket.on('disconnect', (name) => {
+        console.log(name);
     });
     socket.on('chat message', (msg) => {
         io.emit('chat message',msg);
-        console.log(msg);
+
+    })
+
+    socket.on('new user', (user) => {
+        if(user[0] != "") {
+            user = new User(user[0], user[1], user[2]);
+            users.push(user);
+            console.log(users);
+            io.emit('newUsers',users);
+        }
+       
     })
 })
 
 http.listen(3030, () => {
     console.log('listening on *:3030');
 })
+
+var users = [];
+
+class User {
+    constructor(name, lat, long) {
+        this.name = name;
+        this.lat = lat;
+        this.long = long;
+    }
+}

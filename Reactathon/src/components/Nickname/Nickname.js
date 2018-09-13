@@ -28,7 +28,7 @@ class Nickname extends Component {
         return(
             <div>
             <h1>Pick a nickname</h1>
-            <form onSubmit={this.handleSubmit}>
+            <form className='nicknameForm' onSubmit={this.handleSubmit}>
                 <input type="text" onChange={this.handleChange} />
             </form>
             
